@@ -7,6 +7,7 @@ public class GameSettings : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        //
         Screen.SetResolution(720, 1280, true);
 	}
 	
