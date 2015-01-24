@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class Actions : MonoBehaviour
 {
+    public GameObject Human;
     public GameObject UIObject;
     public int actionCount = 7;
     public int[] actionsID;
+    public int[] pointList;
     public int[] painetutNapit;
     public int turnAmount = 0;
     public int maxTurns = 2;
+    private int roundAmount;
     private int playerPoints;
 
     private bool isMaxTurns = false;
@@ -16,10 +20,14 @@ public class Actions : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        pointList = new int[6];
+        randomisePointList();
+        Human = GameObject.FindWithTag("Human");
         painetutNapit = new int[2];
         UIObject = GameObject.FindWithTag("UI object");
         actionsID = new int[actionCount];
         turnAmount = 0;
+        roundAmount = 0;
 
         for(int i = 0; i < actionCount; i++)
         {
@@ -35,7 +43,10 @@ public class Actions : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-	
+        if (roundAmount > 2)
+        {
+            Application.LoadLevel("score");
+        }
 	}
 
     public void PlayerTurn(int id)
@@ -57,56 +68,112 @@ public class Actions : MonoBehaviour
         }
     }
 
+    void Reset()
+    {
+        turnAmount = 0;
+        isMaxTurns = false;
+        playerPoints = 0;
+    }
+
     void CountPoints()
     {
-        Debug.Log(playerPoints);
+        HumanScript humanScript = Human.gameObject.GetComponent<HumanScript>();
+        GameScore.roundScores[roundAmount] = playerPoints;
+        Reset();
+        humanScript.canLeave();
+
+        roundAmount++;
     }
 
     void ChooseAction(int id)
     {
         if(actionsID[id] == 0)
         {
-            DoSomething1();
+            GivePresent();
         }
         else if (actionsID[id] == 1)
         {
-            DoSomething2();
+            Hit();
         }
         else if (actionsID[id] == 2)
         {
-            DoSomething3();
+            Kiss();
         }
         else if (actionsID[id] == 3)
         {
-            DoSomething4();
+            Wink();
         }
-        else if (actionsID[id] > 3 )
+        else if (actionsID[id] == 4 )
         {
-            Debug.Log("something else");
+            Talk();
+        }
+        else if (actionsID[id] == 5)
+        {
+            ShowMuscle();
         }
     }
 
-    void DoSomething1()
+    void randomisePointList()
     {
-        Debug.Log("DS1");
-        playerPoints += 0;
+        var numbersAdded = 0;
+        while(numbersAdded < 6)
+        {
+            var rand = Random.Range(-2,6);
+            if (!pointList.Contains(rand))
+            {
+                pointList[numbersAdded] = rand;
+                numbersAdded++;
+            }
+        }
     }
 
-    void DoSomething2()
+    void GivePresent()
     {
-        Debug.Log("DS2");
-        playerPoints += 2;
+        // animation
+        playerPoints += pointList[0];
+        Debug.Log("GiveMoney()");
+        Debug.Log(playerPoints);
     }
 
-    void DoSomething3()
+    void Hit()
     {
-        Debug.Log("DS3");
-        playerPoints += 1;
+        // animation
+        // randomize how many points
+        playerPoints += pointList[1];
+        Debug.Log("Hit()");
+        Debug.Log(playerPoints);
     }
 
-    void DoSomething4()
+    void Kiss()
     {
-        Debug.Log("DS4");
-        playerPoints += -1;
+        // animation
+        playerPoints += pointList[2];
+        Debug.Log("Kiss()");
+        Debug.Log(playerPoints);
     }
+
+    void Wink()
+    {
+        // animation
+        playerPoints += pointList[3];
+        Debug.Log("Wink()");
+        Debug.Log(playerPoints);
+    }
+
+    void Talk()
+    {
+        // anim
+        playerPoints += pointList[4];
+        Debug.Log("Talk()");
+        Debug.Log(playerPoints);
+    }
+
+    void ShowMuscle()
+    {
+        // animation
+        playerPoints += pointList[5];
+        Debug.Log("ShowMuscle()");
+        Debug.Log(playerPoints);
+    }
+    
 }

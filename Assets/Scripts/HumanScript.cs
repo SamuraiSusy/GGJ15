@@ -54,7 +54,7 @@ public class HumanScript : MonoBehaviour {
 		}
 		if (Input.GetKey ("up"))
 		{
-			isReadyToLeave = true;
+            canLeave();
 		}
 
 		if(!isSpawned)
