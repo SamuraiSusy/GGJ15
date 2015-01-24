@@ -8,6 +8,7 @@ public class UI : MonoBehaviour
     public int buttonCount = 6;
     public GameObject[] actionButtons;
     public GameObject buttonPref;
+    public GameObject[] buttonPrefs;
     private float buttonRadius = 0.64f;
     private bool isButtonDown = false;
 
@@ -15,10 +16,10 @@ public class UI : MonoBehaviour
 	void Start ()
     {
         ActionObject = GameObject.FindWithTag("Action object");
-        Actions juttu = ActionObject.gameObject.GetComponent<Actions>();
         float os1 = 0;
         float os2 = 0f;
         actionButtons = new GameObject[buttonCount];
+        buttonPrefs = new GameObject[6];
 
         for (int i = 0; i < buttonCount; ++i)
         {
@@ -41,10 +42,6 @@ public class UI : MonoBehaviour
     {
         IsButtonPressed();
 	}
-
-    void OnGUI()
-    {
-    }
 
     void IsButtonPressed()
     {

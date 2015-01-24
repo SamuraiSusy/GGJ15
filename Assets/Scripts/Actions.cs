@@ -9,11 +9,13 @@ public class Actions : MonoBehaviour
     public int actionCount = 7;
     public int[] actionsID;
     public int[] pointList;
-    public int[] painetutNapit;
+    public int[] pressedButtons;
+    public int[] answerSheet;
+    public GameObject Text;
     public int turnAmount = 0;
     public int maxTurns = 2;
     private int roundAmount;
-    private int playerPoints;
+    public int playerPoints;
 
     private bool isMaxTurns = false;
 
@@ -21,9 +23,11 @@ public class Actions : MonoBehaviour
 	void Start ()
     {
         pointList = new int[6];
+        answerSheet = new int[6];
+        //Text = GameObject.FindWithTag("RWText");
         randomisePointList();
         Human = GameObject.FindWithTag("Human");
-        painetutNapit = new int[2];
+        pressedButtons = new int[2];
         UIObject = GameObject.FindWithTag("UI object");
         actionsID = new int[actionCount];
         turnAmount = 0;
@@ -33,9 +37,9 @@ public class Actions : MonoBehaviour
         {
             actionsID[i] = i;
         }
-        for (int i = 0; i < painetutNapit.Length; i++)
+        for (int i = 0; i < pressedButtons.Length; i++)
         {
-            painetutNapit[i] = -1;
+            pressedButtons[i] = -1;
         }
 
 	}
@@ -51,10 +55,11 @@ public class Actions : MonoBehaviour
 
     public void PlayerTurn(int id)
     {
+        //ROWScript rows = Text.GetComponent<ROWScript>();
         if(!isMaxTurns)
         {
             ChooseAction(id);
-            painetutNapit[turnAmount] = id;
+            pressedButtons[turnAmount] = id;
             turnAmount++;
             if (turnAmount >= maxTurns)
             {
@@ -66,6 +71,7 @@ public class Actions : MonoBehaviour
         {
             Debug.Log("Can't press!");
         }
+        CorrectAnswer(id);
     }
 
     void Reset()
@@ -113,6 +119,27 @@ public class Actions : MonoBehaviour
         }
     }
 
+    public void CorrectAnswer(int choise)
+    {
+        answerSheet[choise] = pointList[choise];
+        if (answerSheet[choise] < 0)
+        {
+            Debug.Log("wrong");
+            var obj1 = (GameObject)Instantiate(Text, new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+            obj1.GetComponent<ROWScript>().isRight(false);
+            obj1.GetComponent<GUIText>().text = "BAD";
+            obj1.GetComponent<GUIText>().color = Color.red;
+        }
+        else if(answerSheet[choise] >= 0 && answerSheet[choise] < 7)
+        {
+            Debug.Log("right");
+            var obj2 = (GameObject)Instantiate(Text, new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+            obj2.GetComponent<ROWScript>().isRight(false);
+            obj2.GetComponent<GUIText>().text = "RIGHT";
+            obj2.GetComponent<GUIText>().color = Color.green;
+        }
+    }
+
     void randomisePointList()
     {
         var numbersAdded = 0;
@@ -132,7 +159,6 @@ public class Actions : MonoBehaviour
         // animation
         playerPoints += pointList[0];
         Debug.Log("GiveMoney()");
-        Debug.Log(playerPoints);
     }
 
     void Hit()
@@ -141,7 +167,6 @@ public class Actions : MonoBehaviour
         // randomize how many points
         playerPoints += pointList[1];
         Debug.Log("Hit()");
-        Debug.Log(playerPoints);
     }
 
     void Kiss()
@@ -149,7 +174,6 @@ public class Actions : MonoBehaviour
         // animation
         playerPoints += pointList[2];
         Debug.Log("Kiss()");
-        Debug.Log(playerPoints);
     }
 
     void Wink()
@@ -157,7 +181,6 @@ public class Actions : MonoBehaviour
         // animation
         playerPoints += pointList[3];
         Debug.Log("Wink()");
-        Debug.Log(playerPoints);
     }
 
     void Talk()
@@ -165,7 +188,6 @@ public class Actions : MonoBehaviour
         // anim
         playerPoints += pointList[4];
         Debug.Log("Talk()");
-        Debug.Log(playerPoints);
     }
 
     void ShowMuscle()
@@ -173,7 +195,6 @@ public class Actions : MonoBehaviour
         // animation
         playerPoints += pointList[5];
         Debug.Log("ShowMuscle()");
-        Debug.Log(playerPoints);
     }
     
 }
