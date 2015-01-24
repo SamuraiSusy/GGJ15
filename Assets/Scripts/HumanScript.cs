@@ -109,18 +109,23 @@ public class HumanScript : MonoBehaviour {
 	{
 		spawnHuman ();
 		rollRandomHuman ();
-		//TODO: increase counter how many you have meet
-		//		and play some sounds etc.
 	}
 
 	public void rollRandomHuman()
 	{
+		var color = new Vector4 (Random.Range (0.25f, 1.0f), Random.Range (0.25f, 1.0f), Random.Range (0.25f, 1.0f), 1);
+
 		humanParts [7].GetComponent<SpriteRenderer> ().sprite = hairSprite [Random.Range (0, hairSprite.Length)];
+		humanParts [7].GetComponent<SpriteRenderer> ().color = new Vector4(color.x,color.y,color.z,1);
+
 		humanParts [6].GetComponent<SpriteRenderer> ().sprite = bodySprite [Random.Range (0, bodySprite.Length)];
 		humanParts [5].GetComponent<SpriteRenderer> ().sprite = faceSprite [Random.Range (0, faceSprite.Length)];
 		humanParts [4].GetComponent<SpriteRenderer> ().sprite = eyeSprite [Random.Range  (0, eyeSprite.Length)];
 		humanParts [3].GetComponent<SpriteRenderer> ().sprite = mouthSprite [Random.Range(0, mouthSprite.Length)];
+
 		humanParts [2].GetComponent<SpriteRenderer> ().sprite = bangSprite [Random.Range (0, bangSprite.Length)];
+		humanParts [2].GetComponent<SpriteRenderer> ().color = new Vector4(color.x,color.y,color.z,1);
+
 		humanParts [1].GetComponent<SpriteRenderer> ().sprite = noseSprite [Random.Range (0, noseSprite.Length)];
 		humanParts [0].GetComponent<SpriteRenderer> ().sprite = browSprite [Random.Range (0, browSprite.Length)];
 	}
