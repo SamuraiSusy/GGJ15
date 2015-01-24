@@ -5,17 +5,29 @@ public class Actions : MonoBehaviour
 {
     public GameObject UIObject;
     public int actionCount = 7;
-    public int[] actions;
+    public int[] actionsID;
+    public int[] painetutNapit;
+    public int turnAmount = 0;
+    public int maxTurns = 2;
+    private int playerPoints;
+
+    private bool isMaxTurns = false;
 
 	// Use this for initialization
 	void Start ()
     {
+        painetutNapit = new int[2];
         UIObject = GameObject.FindWithTag("UI object");
-        actions = new int[actionCount];
+        actionsID = new int[actionCount];
+        turnAmount = 0;
 
         for(int i = 0; i < actionCount; i++)
         {
-            actions[i] = i;
+            actionsID[i] = i;
+        }
+        for (int i = 0; i < painetutNapit.Length; i++)
+        {
+            painetutNapit[i] = -1;
         }
 
 	}
@@ -26,25 +38,49 @@ public class Actions : MonoBehaviour
 	
 	}
 
-    public void ChooseAction()
+    public void PlayerTurn(int id)
     {
-        if(actions[actionCount] == 1)
+        if(!isMaxTurns)
+        {
+            ChooseAction(id);
+            painetutNapit[turnAmount] = id;
+            turnAmount++;
+            if (turnAmount >= maxTurns)
+            {
+                isMaxTurns = true;
+                Invoke("CountPoints", 2f);
+            }
+        }
+        else
+        {
+            Debug.Log("Can't press!");
+        }
+    }
+
+    void CountPoints()
+    {
+        Debug.Log(playerPoints);
+    }
+
+    void ChooseAction(int id)
+    {
+        if(actionsID[id] == 0)
         {
             DoSomething1();
         }
-        else if(actions[actionCount] == 2)
+        else if (actionsID[id] == 1)
         {
             DoSomething2();
         }
-        else if (actions[actionCount] == 3)
+        else if (actionsID[id] == 2)
         {
             DoSomething3();
         }
-        else if (actions[actionCount] == 4)
+        else if (actionsID[id] == 3)
         {
             DoSomething4();
         }
-        else
+        else if (actionsID[id] > 3 )
         {
             Debug.Log("something else");
         }
@@ -52,33 +88,25 @@ public class Actions : MonoBehaviour
 
     void DoSomething1()
     {
-        if (actions[actionCount] == 1)
-        {
-            Debug.Log("action #" + actionCount);
-        }
+        Debug.Log("DS1");
+        playerPoints += 0;
     }
 
     void DoSomething2()
     {
-        if (actions[actionCount] == 2)
-        {
-            Debug.Log("action #" + actionCount);
-        }
+        Debug.Log("DS2");
+        playerPoints += 2;
     }
 
     void DoSomething3()
     {
-        if (actions[actionCount] == 3)
-        {
-            Debug.Log("action #" + actionCount);
-        }
+        Debug.Log("DS3");
+        playerPoints += 1;
     }
 
     void DoSomething4()
     {
-        if (actions[actionCount] == 4)
-        {
-            Debug.Log("action #" + actionCount);
-        }
+        Debug.Log("DS4");
+        playerPoints += -1;
     }
 }
