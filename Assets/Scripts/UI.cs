@@ -8,7 +8,7 @@ public class UI : MonoBehaviour
     public int buttonCount = 6;
     public GameObject[] actionButtons;
     public GameObject buttonPref;
-    private float buttonRadius = 64;
+    private float buttonRadius = 0.64f;
     private bool isButtonDown = false;
 
 	// Use this for initialization
@@ -49,12 +49,12 @@ public class UI : MonoBehaviour
     void IsButtonPressed()
     {
         Actions actions = ActionObject.gameObject.GetComponent<Actions>();
-        if (Input.GetMouseButtonDown(1) && !isButtonDown)
+        if (Input.GetMouseButtonDown(0) && !isButtonDown)
         {
             isButtonDown = true;
             for (int i = 0; i < buttonCount; i++)
             {
-                if (Vector2.Distance(actionButtons[i].transform.localPosition, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < 0.64f)
+                if (Vector2.Distance(actionButtons[i].transform.localPosition, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < buttonRadius)
                 {
                     actions.PlayerTurn(i);
                 }
