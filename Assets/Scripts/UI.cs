@@ -8,7 +8,7 @@ public class UI : MonoBehaviour
     public int buttonCount = 6;
     public GameObject[] actionButtons;
     public GameObject buttonPref;
-    public GameObject[] buttonPrefs;
+    public Sprite[] buttonIcons;
     private float buttonRadius = 0.64f;
     private bool isButtonDown = false;
 
@@ -19,7 +19,7 @@ public class UI : MonoBehaviour
         float os1 = 0;
         float os2 = 0f;
         actionButtons = new GameObject[buttonCount];
-        buttonPrefs = new GameObject[6];
+        
 
         for (int i = 0; i < buttonCount; ++i)
         {
@@ -27,11 +27,13 @@ public class UI : MonoBehaviour
             {
                 actionButtons[i] = (GameObject)Instantiate(buttonPref, new Vector3(-1.7f + os1, -3.85f), Quaternion.identity);
                 os1 += 1.7f;
+                actionButtons[i].GetComponent<SpriteRenderer>().sprite = buttonIcons[i];
             }
             else if (i >= 3 && buttonCount <= 6)
             {
                 actionButtons[i] = (GameObject)Instantiate(buttonPref, new Vector3(-1.7f + os2, -2.1f), Quaternion.identity);
                 os2 += 1.7f;
+                actionButtons[i].GetComponent<SpriteRenderer>().sprite = buttonIcons[i];
             }
 
         }
