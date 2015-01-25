@@ -17,6 +17,9 @@ public class ROWScript : MonoBehaviour
 	void Update () 
 	{
 		transform.Translate (new Vector3 (0, 0.25f * Time.deltaTime));
+		GetComponent<GUIText>().fontSize -= 1;
+		if (GetComponent<GUIText> ().fontSize <= 1)
+				GetComponent<GUIText> ().fontSize = 1;
 	}
 
 	public IEnumerator show()

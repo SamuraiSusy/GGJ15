@@ -6,6 +6,7 @@ public class Actions : MonoBehaviour
 {
     public GameObject Human;
     public GameObject UIObject;
+	public GameObject scoreParticle;
     public int actionCount = 7;
     public int[] actionsID;
     public int[] pointList;
@@ -94,8 +95,8 @@ public class Actions : MonoBehaviour
         HumanScript humanScript = Human.gameObject.GetComponent<HumanScript>();
         //GameScore.roundScores[roundAmount] = playerPoints;
         Reset();
-        humanScript.canLeave();
-
+        humanScript.canLeave();		
+		randomisePointList();
         roundAmount++;
     }
 
@@ -137,7 +138,10 @@ public class Actions : MonoBehaviour
             var obj1 = (GameObject)Instantiate(Text, new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
             obj1.GetComponent<ROWScript>().isRight(false);
             obj1.GetComponent<GUIText>().text = "BAD";
-            obj1.GetComponent<GUIText>().color = Color.red;
+			obj1.GetComponent<GUIText>().color = Color.red;
+			var par1 = (GameObject)Instantiate(scoreParticle, new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+			par1.GetComponent<ParticleSystem>().startColor = Color.red;
+			par1.GetComponent<ParticleSystem>().renderer.sortingOrder = -3;
         }
         else if(answerSheet[choise] > 0 && answerSheet[choise] < 7)
         {
@@ -147,12 +151,21 @@ public class Actions : MonoBehaviour
             obj2.GetComponent<ROWScript>().isRight(false);
             obj2.GetComponent<GUIText>().text = "RIGHT";
             obj2.GetComponent<GUIText>().color = Color.green;
+			var par2 = (GameObject)Instantiate(scoreParticle, new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+			par2.GetComponent<ParticleSystem>().startColor = Color.green;
+			par2.GetComponent<ParticleSystem>().renderer.sortingOrder = -3;
         }
     }
 
     void randomisePointList()
     {
         var numbersAdded = 0;
+
+		for (int i = 0; pointList.Length > i; i++)
+		{
+			pointList[i] = 0;
+		}
+
         while(numbersAdded < 6)
         {
             var rand = Random.Range(-2,6);
