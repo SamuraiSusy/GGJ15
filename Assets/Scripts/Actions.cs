@@ -49,7 +49,7 @@ public class Actions : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (roundAmount > 2)
+        if (roundAmount > 4)
         {
             Application.LoadLevel("score");
         }
@@ -92,7 +92,7 @@ public class Actions : MonoBehaviour
     void CountPoints()
     {
         HumanScript humanScript = Human.gameObject.GetComponent<HumanScript>();
-        GameScore.roundScores[roundAmount] = playerPoints;
+        //GameScore.roundScores[roundAmount] = playerPoints;
         Reset();
         humanScript.canLeave();
 
@@ -130,17 +130,19 @@ public class Actions : MonoBehaviour
     public void CorrectAnswer(int choise)
     {
         answerSheet[choise] = pointList[choise];
-        if (answerSheet[choise] < 0)
+        if (answerSheet[choise] <= 0)
         {
             Debug.Log("wrong");
+            GameScore.roundScores[roundAmount] -= 1;
             var obj1 = (GameObject)Instantiate(Text, new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
             obj1.GetComponent<ROWScript>().isRight(false);
             obj1.GetComponent<GUIText>().text = "BAD";
             obj1.GetComponent<GUIText>().color = Color.red;
         }
-        else if(answerSheet[choise] >= 0 && answerSheet[choise] < 7)
+        else if(answerSheet[choise] > 0 && answerSheet[choise] < 7)
         {
             Debug.Log("right");
+            GameScore.roundScores[roundAmount] += 1;
             var obj2 = (GameObject)Instantiate(Text, new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
             obj2.GetComponent<ROWScript>().isRight(false);
             obj2.GetComponent<GUIText>().text = "RIGHT";
