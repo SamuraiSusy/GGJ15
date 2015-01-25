@@ -97,6 +97,7 @@ public class Actions : MonoBehaviour
         Reset();
         humanScript.canLeave();		
 		randomisePointList();
+		GameScore.curRound = roundAmount;
         roundAmount++;
     }
 

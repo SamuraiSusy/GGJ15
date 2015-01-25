@@ -1,9 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameScore : MonoBehaviour {
 
 	static public int[] roundScores = new int[5];
+	static public int curRound = 0;
+	static public int winRound = 0;
+	static public int[] humanOne = new int[10];
+	static public int[] humanTwo = new int[10];
+	static public int[] humanTre = new int[10];
+	static public int[] humanFou = new int[10];
+	static public int[] humanFiv = new int[10];
 
 	// Use this for initialization
 	void Start ()
@@ -19,14 +27,10 @@ public class GameScore : MonoBehaviour {
 
 	static public string getScoreList()
 	{
-        return          "Game over" + "\n\n" +
-                        "Round 1: " + roundScores [0] + "\n" +
-                        "Round 2: " + roundScores[1] + "\n" +
-                        "Round 3: " + roundScores[2] + "\n" +
-                        "Round 4: " + roundScores[3] + "\n" +
-                        "Round 5: " + roundScores[4] + "\n" +
-                        "Overall: " + (roundScores [0]+roundScores [1]+roundScores [2]+roundScores [3]+roundScores [4]) + "\n\n" + 
+        return          "Your true love" + "\n\n" +
+                        "Score: " + (roundScores [0]+roundScores [1]+roundScores [2]+roundScores [3]+roundScores [4]) + "\n\n" + 
                         "Tap to continue"
                         ;
 	}
+
 }

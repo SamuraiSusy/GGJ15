@@ -21,6 +21,16 @@ public class HumanScript : MonoBehaviour {
 	private Vector2 whereItStands;
 	public bool isSpawned;
 	public bool isReadyToLeave;
+
+	int one;
+	int two;
+	int tre;
+	int fou;
+	int fiv;
+	int six;
+	int sev;
+	int eig;
+
 	// Use this for initialization
 	void Start () 
 	{	
@@ -108,26 +118,118 @@ public class HumanScript : MonoBehaviour {
 	public void respawnHuman()
 	{
 		spawnHuman ();
+		//saveCurHuman ();
 		rollRandomHuman ();
+	}
+	
+	public void saveCurHuman()
+	{
+		switch (GameScore.curRound) {
+
+		case 0:
+			GameScore.humanOne[7] = eig;
+			GameScore.humanOne[6] = sev;
+			GameScore.humanOne[5] = six;
+			GameScore.humanOne[4] = fiv;
+			GameScore.humanOne[3] = fou;
+			GameScore.humanOne[2] = tre;
+			GameScore.humanOne[1] = two;
+			GameScore.humanOne[0] = one;
+			break;
+		case 1:
+			GameScore.humanTwo[7] = eig;
+			GameScore.humanTwo[6] = sev;
+			GameScore.humanTwo[5] = six;
+			GameScore.humanTwo[4] = fiv;
+			GameScore.humanTwo[3] = fou;
+			GameScore.humanTwo[2] = tre;
+			GameScore.humanTwo[1] = two;
+			GameScore.humanTwo[0] = one;		
+			break;
+		case 2:
+			GameScore.humanTre[7] = eig;
+			GameScore.humanTre[6] = sev;
+			GameScore.humanTre[5] = six;
+			GameScore.humanTre[4] = fiv;
+			GameScore.humanTre[3] = fou;
+			GameScore.humanTre[2] = tre;
+			GameScore.humanTre[1] = two;
+			GameScore.humanTre[0] = one;
+			break;
+		case 3:
+			GameScore.humanFou[7] = eig;
+			GameScore.humanFou[6] = sev;
+			GameScore.humanFou[5] = six;
+			GameScore.humanFou[4] = fiv;
+			GameScore.humanFou[3] = fou;
+			GameScore.humanFou[2] = tre;
+			GameScore.humanFou[1] = two;
+			GameScore.humanFou[0] = one;
+			break;
+		case 4:
+			GameScore.humanFiv[7] = eig;
+			GameScore.humanFiv[6] = sev;
+			GameScore.humanFiv[5] = six;
+			GameScore.humanFiv[4] = fiv;
+			GameScore.humanFiv[3] = fou;
+			GameScore.humanFiv[2] = tre;
+			GameScore.humanFiv[1] = two;
+			GameScore.humanFiv[0] = one;
+			break;
+		default:
+			Debug.Log("Error while saving human");
+			break;
+				}
 	}
 
 	public void rollRandomHuman()
 	{
-		var color = new Vector4 (Random.Range (0.25f, 1.0f), Random.Range (0.25f, 1.0f), Random.Range (0.25f, 1.0f), 1);
+		if (Application.loadedLevelName != "score")
+		{
+			var color = new Vector4 (Random.Range (0.25f, 1.0f), Random.Range (0.25f, 1.0f), Random.Range (0.25f, 1.0f), 1);
+			eig = Random.Range(0, hairSprite.Length);
+			sev = Random.Range (0, bodySprite.Length);
+			six = Random.Range (0, faceSprite.Length);
+			fiv = Random.Range (0, eyeSprite.Length);
+			fou = Random.Range (0, mouthSprite.Length);
+			tre = Random.Range (0, bangSprite.Length);
+			two = Random.Range (0, noseSprite.Length);
+			one = Random.Range (0, browSprite.Length);
 
-		humanParts [7].GetComponent<SpriteRenderer> ().sprite = hairSprite [Random.Range (0, hairSprite.Length)];
-		humanParts [7].GetComponent<SpriteRenderer> ().color = new Vector4(color.x,color.y,color.z,1);
+				humanParts [7].GetComponent<SpriteRenderer> ().sprite = hairSprite [eig];
+				humanParts [7].GetComponent<SpriteRenderer> ().color = new Vector4 (color.x, color.y, color.z, 1);
 
-		humanParts [6].GetComponent<SpriteRenderer> ().sprite = bodySprite [Random.Range (0, bodySprite.Length)];
-		humanParts [5].GetComponent<SpriteRenderer> ().sprite = faceSprite [Random.Range (0, faceSprite.Length)];
-		humanParts [4].GetComponent<SpriteRenderer> ().sprite = eyeSprite [Random.Range  (0, eyeSprite.Length)];
-		humanParts [3].GetComponent<SpriteRenderer> ().sprite = mouthSprite [Random.Range(0, mouthSprite.Length)];
+				humanParts [6].GetComponent<SpriteRenderer> ().sprite = bodySprite [sev];
+				humanParts [5].GetComponent<SpriteRenderer> ().sprite = faceSprite [six];
+				humanParts [4].GetComponent<SpriteRenderer> ().sprite = eyeSprite [fiv];
+				humanParts [3].GetComponent<SpriteRenderer> ().sprite = mouthSprite [fou];
 
-		humanParts [2].GetComponent<SpriteRenderer> ().sprite = bangSprite [Random.Range (0, bangSprite.Length)];
-		humanParts [2].GetComponent<SpriteRenderer> ().color = new Vector4(color.x,color.y,color.z,1);
+				humanParts [2].GetComponent<SpriteRenderer> ().sprite = bangSprite [tre];
+				humanParts [2].GetComponent<SpriteRenderer> ().color = new Vector4 (color.x, color.y, color.z, 1);
 
-		humanParts [1].GetComponent<SpriteRenderer> ().sprite = noseSprite [Random.Range (0, noseSprite.Length)];
-		humanParts [0].GetComponent<SpriteRenderer> ().sprite = browSprite [Random.Range (0, browSprite.Length)];
+				humanParts [1].GetComponent<SpriteRenderer> ().sprite = noseSprite [two];
+				humanParts [0].GetComponent<SpriteRenderer> ().sprite = browSprite [one];
+		}
+		else
+		{	
+			
+			var color = new Vector4 (Random.Range (0.25f, 1.0f), Random.Range (0.25f, 1.0f), Random.Range (0.25f, 1.0f), 1);
+
+			humanParts [7].GetComponent<SpriteRenderer> ().sprite = hairSprite [eig];
+			humanParts [7].GetComponent<SpriteRenderer> ().color = new Vector4 (color.x, color.y, color.z, 1);
+			
+			humanParts [6].GetComponent<SpriteRenderer> ().sprite = bodySprite [sev];
+			humanParts [5].GetComponent<SpriteRenderer> ().sprite = faceSprite [six];
+			humanParts [4].GetComponent<SpriteRenderer> ().sprite = eyeSprite [fiv];
+			humanParts [3].GetComponent<SpriteRenderer> ().sprite = mouthSprite [fou];
+			
+			humanParts [2].GetComponent<SpriteRenderer> ().sprite = bangSprite [tre];
+			humanParts [2].GetComponent<SpriteRenderer> ().color = new Vector4 (color.x, color.y, color.z, 1);
+			
+			humanParts [1].GetComponent<SpriteRenderer> ().sprite = noseSprite [two];
+			humanParts [0].GetComponent<SpriteRenderer> ().sprite = browSprite [one];
+
+		}
 	}
 
 	public void spawnHuman()
