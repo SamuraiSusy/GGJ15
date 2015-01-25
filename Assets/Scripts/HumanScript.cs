@@ -19,8 +19,8 @@ public class HumanScript : MonoBehaviour {
 	private Vector2 whereTo;
 	private Vector2 whereFrom;
 	private Vector2 whereItStands;
-	private bool isSpawned;
-	private bool isReadyToLeave;
+	public bool isSpawned;
+	public bool isReadyToLeave;
 	// Use this for initialization
 	void Start () 
 	{	
@@ -132,6 +132,8 @@ public class HumanScript : MonoBehaviour {
 
 	public void spawnHuman()
 	{
+        GetComponent<AudioSource>().pitch = Random.Range(0.6f, 1.5f);
+        GetComponent<AudioSource>().PlayDelayed(0.25f);
 		transform.position = whereFrom;
 		isSpawned = false;
 		isReadyToLeave = false;

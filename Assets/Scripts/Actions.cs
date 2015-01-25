@@ -16,8 +16,10 @@ public class Actions : MonoBehaviour
     public int maxTurns = 2;
     private int roundAmount;
     public int playerPoints;
+    public GUIText[] stats;
 
-    private bool isMaxTurns = false;
+    public bool isMaxTurns = false;
+    private int temp = 1;
 
 	// Use this for initialization
 	void Start ()
@@ -51,6 +53,12 @@ public class Actions : MonoBehaviour
         {
             Application.LoadLevel("score");
         }
+
+        stats[0].text = "Points: " + (GameScore.roundScores[0] +
+                                    GameScore.roundScores[1] +
+                                    GameScore.roundScores[2]);
+        stats[1].text = "Round " + (roundAmount + temp);
+        stats[2].text = "Choices: " + (2 - turnAmount);
 	}
 
     public void PlayerTurn(int id)
@@ -64,7 +72,7 @@ public class Actions : MonoBehaviour
             if (turnAmount >= maxTurns)
             {
                 isMaxTurns = true;
-                Invoke("CountPoints", 2f);
+                Invoke("CountPoints", 1.2f);
             }
         }
         else

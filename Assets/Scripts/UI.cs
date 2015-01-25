@@ -4,11 +4,13 @@ using System.Collections;
 public class UI : MonoBehaviour
 {
     public GameObject ActionObject;
+    public GameObject Human;
     public int[] buttonIDs;
     public int buttonCount = 6;
     public GameObject[] actionButtons;
     public GameObject buttonPref;
     public Sprite[] buttonIcons;
+    public AudioClip[] audioClips;
     private float buttonRadius = 0.64f;
     private bool isButtonDown = false;
 
@@ -19,6 +21,7 @@ public class UI : MonoBehaviour
         float os1 = 0;
         float os2 = 0f;
         actionButtons = new GameObject[buttonCount];
+
         
 
         for (int i = 0; i < buttonCount; ++i)
@@ -48,14 +51,18 @@ public class UI : MonoBehaviour
     void IsButtonPressed()
     {
         Actions actions = ActionObject.gameObject.GetComponent<Actions>();
+        HumanScript human = Human.gameObject.gameObject.GetComponent<HumanScript>();
         if (Input.GetMouseButtonDown(0) && !isButtonDown)
         {
             isButtonDown = true;
             for (int i = 0; i < buttonCount; i++)
             {
-                if (Vector2.Distance(actionButtons[i].transform.localPosition, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < buttonRadius)
+                if (Vector2.Distance(actionButtons[i].transform.localPosition, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < buttonRadius
+                    && human.isSpawned && !human.isReadyToLeave && !actions.isMaxTurns)
                 {
                     actions.PlayerTurn(i);
+                    GetComponent<AudioSource>().clip = audioClips[i]; 
+                    GetComponent<AudioSource>().Play();
                 }
             }
         }
